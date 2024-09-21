@@ -14,12 +14,12 @@ const Hero = () => {
             <h1 className='text-white text-5xl  font-bold'>I'm Khalid<span>Ghani</span></h1>
             <div className='font-bold text-white text-2xl '><Typewriter
             options={{
-            strings: ["I'M FrontEnd Web Developer"],
+            strings: ["I&apos;M FrontEnd Web Developer"],
             autoStart: true,
             loop: true,
             }} /> </div>
 
-            <p className='text-white'>I am committed to mastering the world's New Technologies , Cloud Computing and Artificial Intelligence.
+            <p className='text-white'>I am committed to mastering the world&apos;s New Technologies , Cloud Computing and Artificial Intelligence.
             My goal is to innovate and contribute to the future of technology...</p>
             <div className=' sm:flex  w-[300px] sm:w-[500px] gap-6'>
               <a href="./myCv.pdf" target='_blank' className='flex bg-blue-400 items-center justify-center w-40  rounded-lg py-2
