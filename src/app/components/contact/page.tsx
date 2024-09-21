@@ -19,16 +19,10 @@ const Contact = () => {
                     <textarea name="message" placeholder="message" className='bg-transparent text-white p-1 focus:outline-none font-sans w-[100%] border border-gray-500 rounded-sm h-24'></textarea>
                     <button type="submit" className='bg-blue-500 text-white w-32 h-12 mt-10 font-sans rounded-lg justify-items-center hover:bg-white hover:text-blue-500 duration-500'onClick={()=>{alert("Submitted")}}>Sumbit Now</button>
                 </div>
-                
-            </form>
+              </form>
             </div>
-        
-        </section>
-
-    </div>
-    
-    
-  )
-}
+          </section>
+</div>
+  )}
 
 export default Contact

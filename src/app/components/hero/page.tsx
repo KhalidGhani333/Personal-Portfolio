@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import Link from 'next/link';
 import { MdOutlineFileDownload } from "react-icons/md";
 import Typewriter from 'typewriter-effect';
 import Image from 'next/image';

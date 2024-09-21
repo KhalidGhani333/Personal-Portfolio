@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 
 
-
 const Navbar = () => {
   return (
   <div>
@@ -17,7 +16,6 @@ const Navbar = () => {
          <Link href="./components/contact" className='text-white hover:text-blue-400 duration-500 '>Contact</Link>
         </div>
       
-
       </div>
    </div>
    </div>
