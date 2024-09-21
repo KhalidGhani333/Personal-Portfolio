@@ -11,7 +11,7 @@ const Hero = () => {
       <section className="flex flex-col lg:flex-row items-center justify-around h-screen mb-40 sm:mt-20">
           <div className='w-[300px] sm:w-[400px] sm:ml-10'>
             <h1 className='text-white text-2xl pt-36'>Hello,</h1>
-            <h1 className='text-white text-5xl  font-bold'>I'm Khalid<span>Ghani</span></h1>
+            <h1 className='text-white text-5xl  font-bold'>I&apos;m Khalid<span>Ghani</span></h1>
             <div className='font-bold text-white text-2xl '><Typewriter
             options={{
             strings: ["I&apos;M FrontEnd Web Developer"],
