@@ -14,7 +14,7 @@ const Hero = () => {
             <h1 className='text-white text-5xl  font-bold'>I&apos;m Khalid<span>Ghani</span></h1>
             <div className='font-bold text-white text-2xl '><Typewriter
             options={{
-            strings: ["I&apos;M FrontEnd Web Developer"],
+            strings: ["I am FrontEnd Web Developer"],
             autoStart: true,
             loop: true,
             }} /> </div>
@@ -34,7 +34,7 @@ const Hero = () => {
         
         
         <div>
-          <Image src={profilepic} alt="My Profile Picture" width={300} height={200} className='mt-16 mx-12  mb-20 rounded-[50%] shadow-lg shadow-yellow-400'/>
+          <Image src={profilepic} alt="My Profile Picture" width={300} height={200} className='mt-16 mb-20 rounded-[50%] shadow-lg shadow-yellow-400'/>
         </div>
       </section>
     </div>
