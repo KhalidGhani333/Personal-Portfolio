@@ -15,7 +15,7 @@ const Portfolio = () => {
    <Skills/>
    <Projects/>
    <Contact/>
-   <p className='text-center py-10'><span>&copy;Khalid Ghani</span></p>
+   <p className='text-center py-10'><span>&copy;Khalid Ghani.All rights reserved</span></p>
    
   
   

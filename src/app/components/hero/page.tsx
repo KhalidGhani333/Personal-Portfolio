@@ -14,7 +14,7 @@ const Hero = () => {
             <h1 className='text-white text-5xl  font-bold'>I&apos;m Khalid<span>Ghani</span></h1>
             <div className='font-bold text-white text-2xl '><Typewriter
             options={{
-            strings: ["I am FrontEnd Web Developer"],
+            strings: ["FrontEnd Web Developer"],
             autoStart: true,
             loop: true,
             }} /> </div>

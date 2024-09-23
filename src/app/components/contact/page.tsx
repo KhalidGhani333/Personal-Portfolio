@@ -1,4 +1,5 @@
 "use client"
+
 import React from 'react'
 
 const Contact = () => {
@@ -21,6 +22,7 @@ const Contact = () => {
                 </div>
               </form>
             </div>
+          
           </section>
 </div>
   )}
