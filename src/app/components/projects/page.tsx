@@ -28,7 +28,7 @@ const Project = () => {
 
         <div className=" items-center justify-center p-4">
       <Image
-        src="/consoleInteractiveTable" alt="interactive tabes" width={300} height={300} className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500"/>
+        src="/interactive table.webp" alt="interactive tabes" width={300} height={300} className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500"/>
         <a href="https://github.com/KhalidGhani333/Console-Interactive-Table.git" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Console Interactive Tables</h3></a>
       </div> 
 
@@ -46,7 +46,7 @@ const Project = () => {
 
       <div className=" items-center justify-center p-4">
       <Image
-        src="/quiz" alt="quiz system" width={300} height={300}  className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500"/>
+        src="/quiz.webp" alt="quiz system" width={300} height={300}  className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500"/>
         <a href="https://github.com/KhalidGhani333/Quiz-System.git" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Quiz System</h3></a>
       </div> 
 
