@@ -8,11 +8,11 @@ const Project = () => {
       <h1 className='text-white text-4xl text-center mt-10 animate-bounce duration-500'><span>My</span> Pro<span>je</span>cts</h1>
       <div className='text-white justify-items-center mt-40 grid grid-cols-2 md:grid-cols-3 text-center'>
       
-      <div className="items-center justify-center p-4">
+      {/* <div className="items-center justify-center p-4">
       <Image
         src="/countdown.png" alt="Countdown" width={300} height={300} className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500 "/>
         <a href="https://count-down-timer-lovat.vercel.app/" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Count Down Timer</h3></a>
-       </div>
+       </div> */}
 
        <div className=" items-center justify-center p-4">
       <Image 
@@ -44,11 +44,11 @@ const Project = () => {
         <a href="https://github.com/KhalidGhani333/OOP-Mybank.git" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Bank Account system</h3></a>
       </div>
 
-      <div className=" items-center justify-center p-4">
+      {/* <div className=" items-center justify-center p-4">
       <Image
         src="/quiz" alt="quiz system" width={300} height={300}  className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500"/>
         <a href="https://github.com/KhalidGhani333/Quiz-System.git" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Quiz System</h3></a>
-      </div>
+      </div> */}
 
       <div className=" items-center justify-center p-4">
       <Image

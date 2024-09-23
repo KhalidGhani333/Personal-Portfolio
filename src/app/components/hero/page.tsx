@@ -34,7 +34,7 @@ const Hero = () => {
         
         
         <div>
-          <Image src={profilepic} alt="My Profile Picture" width={300} height={200} className='mt-16 mb-20 rounded-[50%] shadow-lg shadow-yellow-400'/>
+          <Image src={profilepic} alt="My Profile Picture" width={300} height={300} className='mt-16 mb-20 w-auto h-auto rounded-[50%] shadow-lg shadow-yellow-400'/>
         </div>
       </section>
     </div>

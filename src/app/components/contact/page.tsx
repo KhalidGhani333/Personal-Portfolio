@@ -8,7 +8,7 @@ const Contact = () => {
        <section id="Contact">
         <h1 className='text-white text-center text-4xl mt-40'><span>Get</span> In Touch</h1>
         <div className="flex justify-center">
-            <form>
+            <form id='#'>
                 <div className="mt-20 grid grid-cols-2 gap-6 w-[350px] sm:w-[600px] md:[800px] ">
                     <input type="text" placeholder="  First Name" required className='bg-transparent focus:outline-none focus:border-yellow-400 border-b border-gray-500 font-sans p-2 mb-16 text-white'></input>
                     <input type="text" placeholder="Last Name" required className='bg-transparent focus:outline-none focus:border-yellow-400 border-b border-gray-500 font-sans p-2 mb-16 text-white'></input>
