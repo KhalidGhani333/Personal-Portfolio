@@ -26,11 +26,11 @@ const Project = () => {
         <a href="https://github.com/KhalidGhani333/WebPage.git" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Ecommerce Web</h3></a>
       </div>
 
-       <div className=" items-center justify-center p-4">
+       {/* <div className=" items-center justify-center p-4">
       <Image
         src="/consoleInteractiveTable" alt="interactive tabes" width={300} height={300} className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500"/>
         <a href="https://github.com/KhalidGhani333/Console-Interactive-Table.git" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Console Interactive Tables</h3></a>
-      </div> 
+      </div>  */}
 
       <div className=" items-center justify-center p-4">
       <Image
