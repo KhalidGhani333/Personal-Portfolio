@@ -23,7 +23,7 @@ const Project = () => {
        <div className=" items-center justify-center p-4">
       <Image
         src="/timebox.jpg" alt="Ecommerce web" width={300} height={300} className="w-64 h-40 rounded-lg shadow-lg shadow-blue-300 hover:scale-105 duration-500"/>
-        <a href="https://github.com/KhalidGhani333/WebPage.git" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Ecommerce Web</h3></a>
+        <a href="https://time-box-web-page.vercel.app/" target="_blank"><h3 className='mt-6 mb-10 underline hover:text-blue-500'>Ecommerce Web</h3></a>
       </div>
 
         <div className=" items-center justify-center p-4">
