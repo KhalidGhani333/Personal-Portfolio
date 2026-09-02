@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FileCode2 } from 'lucide-react'
 import {
   SiReact,
   SiNextdotjs,
@@ -11,10 +12,12 @@ import {
   SiPython,
   SiGithub,
   SiN8N,
+  SiSanity,
 } from 'react-icons/si'
 import { BRAND, FAQS } from '../../data/content'
 import { OpenAIIcon, GoHighLevelIcon } from '../../lib/icons'
 import type { Faq, IconComponent } from '../../lib/types'
+import Reveal from '../GsapReveal'
 
 interface SkillIcon {
   Icon: IconComponent
@@ -39,11 +42,14 @@ const SKILL_ICONS: SkillIcon[] = [
   { Icon: SiHtml5, color: '#E34F26', top: '10%', left: '95%' },
   // bottom row
   { Icon: SiCss, color: '#1572B6', top: '88%', left: '10%' },
-  { Icon: SiPython, color: '#3776AB', top: '84%', left: '25%' },
-  { Icon: OpenAIIcon, color: '#1A1A1A', top: '90%', left: '41%' },
-  { Icon: SiGithub, color: '#1A1A1A', top: '90%', left: '58%' },
-  { Icon: GoHighLevelIcon, color: '#E8C200', top: '84%', left: '74%' },
-  { Icon: SiN8N, color: '#EA4B71', top: '88%', left: '90%' },
+  { Icon: SiPython, color: '#3776AB', top: '84%', left: '20%' },
+  { Icon: OpenAIIcon, color: '#1A1A1A', top: '90%', left: '30%' },
+  { Icon: SiGithub, color: '#1A1A1A', top: '88%', left: '40%' },
+  { Icon: GoHighLevelIcon, color: '#E8C200', top: '84%', left: '50%' },
+  { Icon: SiN8N, color: '#EA4B71', top: '90%', left: '60%' },
+  { Icon: OpenAIIcon, color: '#1A1A1A', top: '88%', left: '70%' },
+  { Icon: SiSanity, color: '#F03E2F', top: '84%', left: '80%' },
+  { Icon: FileCode2, color: '#E8C200', top: '90%', left: '90%' },
 ]
 
 function SkillBadge({ Icon, color, top, left }: SkillIcon) {
@@ -99,16 +105,27 @@ export default function FAQ() {
       </div>
 
       <div className="mx-auto mt-8 max-w-5xl px-4">
-        <span className="inline-block rounded-full bg-[#E8C200] px-4 py-1.5 text-xs font-bold text-[#1A1A1A]">
+        <Reveal
+          as="span"
+          effect="up"
+          className="inline-block rounded-full bg-[#E8C200] px-4 py-1.5 text-xs font-bold text-[#1A1A1A]"
+        >
           FAQ
-        </span>
-        <h2 className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-[#1A1A1A]">
+        </Reveal>
+        <Reveal
+          as="h2"
+          effect="up"
+          delay={0.1}
+          className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-[#1A1A1A]"
+        >
           Got any questions?
-        </h2>
+        </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
-          {FAQS.map((faq) => (
-            <AccordionItem key={faq.question} faq={faq} />
+          {FAQS.map((faq, index) => (
+            <Reveal key={faq.question} effect={index % 2 === 0 ? 'right' : 'left'}>
+              <AccordionItem faq={faq} />
+            </Reveal>
           ))}
         </div>
       </div>

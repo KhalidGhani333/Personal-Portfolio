@@ -3,14 +3,20 @@ import { ArrowLeft, ExternalLink, FolderGit2, Layers } from 'lucide-react'
 import { FULL_STACK_PROJECTS } from '../../data/content'
 import type { GridProject } from '../../lib/types'
 import ProjectThumb from '../../components/ProjectThumb'
+import Reveal from '../../components/GsapReveal'
 
 export const metadata = {
   title: 'Full Stack Projects | Khalid Ghani',
 }
 
-function FullStackProjectCard({ project }: { project: GridProject }) {
+function FullStackProjectCard({ project, index }: { project: GridProject; index: number }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-[20px] border border-[#1A1A1A]/10 bg-white/60">
+    <Reveal
+      as="article"
+      effect="up"
+      delay={(index % 3) * 0.1}
+      className="flex flex-col overflow-hidden rounded-[20px] border border-[#1A1A1A]/10 bg-white/60"
+    >
       {project.image ? (
         <img
           src={project.image}
@@ -49,20 +55,22 @@ function FullStackProjectCard({ project }: { project: GridProject }) {
               Live Preview
             </a>
           )}
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noreferrer"
-            className={`inline-flex items-center justify-center gap-1.5 rounded-full border-2 border-[#1A1A1A]/15 px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] ${
-              project.live ? '' : 'flex-1'
-            }`}
-          >
-            <FolderGit2 className="h-3.5 w-3.5" aria-hidden="true" />
-            GitHub
-          </a>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              className={`inline-flex items-center justify-center gap-1.5 rounded-full border-2 border-[#1A1A1A]/15 px-4 py-2.5 text-xs font-semibold text-[#1A1A1A] ${
+                project.live ? '' : 'flex-1'
+              }`}
+            >
+              <FolderGit2 className="h-3.5 w-3.5" aria-hidden="true" />
+              GitHub
+            </a>
+          )}
         </div>
       </div>
-    </article>
+    </Reveal>
   )
 }
 
@@ -87,17 +95,21 @@ export default function FullStackProjectsPage() {
           Back to portfolio
         </Link>
 
-        <h1 className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]">
+        <Reveal
+          as="h1"
+          effect="up"
+          className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]"
+        >
           Full Stack <span className="text-[#E8C200]">Projects</span>
-        </h1>
-        <p className="mt-4 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
+        </Reveal>
+        <Reveal as="p" effect="up" delay={0.1} className="mt-4 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
           End-to-end apps I&apos;ve built - frontend, backend, and database working together.
-        </p>
+        </Reveal>
 
         {FULL_STACK_PROJECTS.length > 0 ? (
           <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {FULL_STACK_PROJECTS.map((project) => (
-              <FullStackProjectCard key={project.name} project={project} />
+            {FULL_STACK_PROJECTS.map((project, index) => (
+              <FullStackProjectCard key={project.name} project={project} index={index} />
             ))}
           </div>
         ) : (

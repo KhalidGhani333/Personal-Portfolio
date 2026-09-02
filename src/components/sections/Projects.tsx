@@ -2,10 +2,14 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { PROJECTS } from '../../data/content'
 import type { FeaturedProject } from '../../lib/types'
+import Reveal from '../GsapReveal'
 
-function ProjectCard({ project }: { project: FeaturedProject }) {
+function ProjectCard({ project, index }: { project: FeaturedProject; index: number }) {
   const card = (
-    <article
+    <Reveal
+      as="article"
+      effect="flip"
+      delay={index * 0.15}
       className={`relative flex h-[420px] w-[85vw] shrink-0 snap-center-item flex-col justify-between overflow-hidden rounded-[20px] border border-white/10 bg-gradient-to-br from-[#403f3b] to-[#151412] p-5 sm:h-[440px] sm:w-[60vw] lg:w-[38vw] ${
         project.link ? 'cursor-pointer' : ''
       }`}
@@ -45,7 +49,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
           <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
         </span>
       </div>
-    </article>
+    </Reveal>
   )
 
   if (!project.link) return card
@@ -61,19 +65,19 @@ export default function Projects() {
   return (
     <section id="projects" className="scroll-mt-20 bg-[#0c0c0b] py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-4">
-        <h2 className="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-white">
+        <Reveal as="h2" effect="up" className="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-white">
           Featured <span className="text-[#E8C200]">Projects</span>
-        </h2>
-        <p className="mt-4 max-w-xl text-base leading-[1.7] text-white/55">
+        </Reveal>
+        <Reveal as="p" effect="up" delay={0.1} className="mt-4 max-w-xl text-base leading-[1.7] text-white/55">
           Automation systems designed, built, and shipped for teams that needed more than a script - a
           look at some of that work.
-        </p>
+        </Reveal>
       </div>
 
       <div className="no-scrollbar mt-12 snap-x-mandatory overflow-x-auto pb-4">
         <div className="flex gap-6 px-4">
-          {PROJECTS.map((project) => (
-            <ProjectCard key={project.number} project={project} />
+          {PROJECTS.map((project, index) => (
+            <ProjectCard key={project.number} project={project} index={index} />
           ))}
           <div className="w-px shrink-0" aria-hidden="true" />
         </div>

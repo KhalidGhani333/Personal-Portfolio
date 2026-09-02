@@ -47,6 +47,19 @@ export interface Trait {
   Icon: IconComponent
 }
 
+export interface SkillCategory {
+  title: string
+  description: string
+  skills: TechStackItem[]
+}
+
+export interface Service {
+  title: string
+  description: string
+  tags: string[]
+  Icon: IconComponent
+}
+
 export interface TimelineEntry {
   year: string
   title: string
@@ -73,7 +86,7 @@ export interface GridProject {
   description: string
   tags: string[]
   live: string | null
-  github: string
+  github: string | null
   image?: string
   Icon: IconComponent
   tone: number

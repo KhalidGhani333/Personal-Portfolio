@@ -1,15 +1,15 @@
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink, FolderGit2, Bot } from 'lucide-react'
-import { AI_PROJECTS } from '../../data/content'
+import { ArrowLeft, ExternalLink, FolderGit2 } from 'lucide-react'
+import { AI_AUTOMATION_PROJECTS } from '../../data/content'
 import type { GridProject } from '../../lib/types'
 import ProjectThumb from '../../components/ProjectThumb'
 import Reveal from '../../components/GsapReveal'
 
 export const metadata = {
-  title: 'AI Projects | Khalid Ghani',
+  title: 'AI Automation | Khalid Ghani',
 }
 
-function AIProjectCard({ project, index }: { project: GridProject; index: number }) {
+function AIAutomationProjectCard({ project, index }: { project: GridProject; index: number }) {
   return (
     <Reveal
       as="article"
@@ -49,7 +49,9 @@ function AIProjectCard({ project, index }: { project: GridProject; index: number
               href={project.live}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-[#1A1A1A] px-4 py-2.5 text-xs font-semibold text-[#E8C200]"
+              className={`inline-flex items-center justify-center gap-1.5 rounded-full bg-[#1A1A1A] px-4 py-2.5 text-xs font-semibold text-[#E8C200] ${
+                project.github ? 'flex-1' : 'w-full'
+              }`}
             >
               <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
               Live Preview
@@ -74,16 +76,7 @@ function AIProjectCard({ project, index }: { project: GridProject; index: number
   )
 }
 
-function EmptyState() {
-  return (
-    <div className="mt-12 flex flex-col items-center gap-3 rounded-[20px] border border-dashed border-[#1A1A1A]/15 bg-white/40 px-6 py-20 text-center">
-      <Bot className="h-8 w-8 text-[#1A1A1A]/30" aria-hidden="true" />
-      <p className="text-sm font-medium text-[#1A1A1A]/50">AI projects are being added here soon.</p>
-    </div>
-  )
-}
-
-export default function AIProjectsPage() {
+export default function AIAutomationPage() {
   return (
     <div className="min-h-screen bg-[#DCD8CF]">
       <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
@@ -100,21 +93,17 @@ export default function AIProjectsPage() {
           effect="up"
           className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]"
         >
-          AI <span className="text-[#E8C200]">Projects</span>
+          AI <span className="text-[#E8C200]">Automation</span>
         </Reveal>
         <Reveal as="p" effect="up" delay={0.1} className="mt-4 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
-          AI agents and workflows I&apos;ve built - here are some of them.
+          GoHighLevel and n8n automation systems - CRM, funnels, booking, and follow-up flows I&apos;ve built for clients.
         </Reveal>
 
-        {AI_PROJECTS.length > 0 ? (
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {AI_PROJECTS.map((project, index) => (
-              <AIProjectCard key={project.name} project={project} index={index} />
-            ))}
-          </div>
-        ) : (
-          <EmptyState />
-        )}
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {AI_AUTOMATION_PROJECTS.map((project, index) => (
+            <AIAutomationProjectCard key={project.name} project={project} index={index} />
+          ))}
+        </div>
       </div>
     </div>
   )

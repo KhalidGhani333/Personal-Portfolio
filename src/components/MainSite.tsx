@@ -10,6 +10,8 @@ import MobileNav from './MobileNav'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Projects from './sections/Projects'
+import Services from './sections/Services'
+import Skills from './sections/Skills'
 import WhatYouGet from './sections/WhatYouGet'
 import FAQ from './sections/FAQ'
 import Footer from './sections/Footer'
@@ -52,6 +54,8 @@ function MainSite() {
           <div className="lg:ml-[240px]">
             <About />
             <Projects />
+            <Services />
+            <Skills />
             <WhatYouGet />
             <FAQ />
             <Footer />

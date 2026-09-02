@@ -27,7 +27,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ active, scrollYProgress, targetRefs }: SidebarProps) {
-  const dark = active === 'projects'
+  const dark = active === 'projects' || active === 'skills'
   const [progress, setProgress] = useState(0)
 
   useMotionValueEvent(scrollYProgress, 'change', setProgress)

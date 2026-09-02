@@ -47,4 +47,21 @@
   .snap-center-item {
     scroll-snap-align: center;
   }
+
+  .animate-marquee {
+    animation: marquee-left 28s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }

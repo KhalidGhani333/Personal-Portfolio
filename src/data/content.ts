@@ -31,6 +31,12 @@ import {
   MessageSquare,
   HeartPulse,
   Briefcase,
+  Workflow,
+  GitBranch,
+  Code2,
+  Wrench,
+  Layers,
+  FileCode2,
 } from 'lucide-react'
 import {
   SiReact,
@@ -43,6 +49,7 @@ import {
   SiCss,
   SiPython,
   SiGithub,
+  SiSanity,
   SiN8N,
 } from 'react-icons/si'
 import { OpenAIIcon, GoHighLevelIcon } from '../lib/icons'
@@ -57,6 +64,8 @@ import type {
   GridProject,
   WhatYouGetItem,
   Faq,
+  SkillCategory,
+  Service,
 } from '../lib/types'
 
 export const BRAND: Brand = {
@@ -82,6 +91,8 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'home', label: 'Home', Icon: Home },
   { id: 'about', label: 'About Me', Icon: User },
   { id: 'projects', label: 'Projects', Icon: FolderKanban },
+  { id: 'services', label: 'Services', Icon: Layers },
+  { id: 'skills', label: 'Skills', Icon: Wrench },
   { id: 'what-you-get', label: 'What You Get', Icon: Gift },
   { id: 'faq', label: 'FAQ', Icon: HelpCircle },
 ]
@@ -107,6 +118,9 @@ export const TECH_STACK: TechStackItem[] = [
   { Icon: SiGithub, color: null, label: 'GitHub' },
   { Icon: GoHighLevelIcon, color: '#E8C200', label: 'GoHighLevel' },
   { Icon: SiN8N, color: '#EA4B71', label: 'n8n' },
+  { Icon: OpenAIIcon, color: null, label: 'OpenAI Agents SDK' },
+  { Icon: SiSanity, color: '#F03E2F', label: 'Sanity' },
+  { Icon: FileCode2, color: '#E8C200', label: 'Spec Driven Development' },
 ]
 
 export const TRAITS: Trait[] = [
@@ -169,10 +183,11 @@ export const TIMELINE: TimelineEntry[] = [
 export const PROJECTS: FeaturedProject[] = [
   {
     number: '01',
-    name: 'Healthcare CRM & Business Automation',
-    description: 'End-to-end CRM automation - lead qualification, appointment booking, pipelines, and email/SMS follow-ups.',
-    tags: ['GoHighLevel', 'n8n', 'CRM', 'Automation'],
-    image: '/case-studies/healthcare-crm.svg',
+    name: 'AI Automation',
+    description: 'GoHighLevel and n8n automation systems - CRM, funnels, booking, and follow-up flows. Click to browse all of them.',
+    tags: ['GoHighLevel', 'n8n', 'CRM'],
+    link: '/ai-automation',
+    image: '/ai-automation/axis-sports-lab.jpg',
   },
   {
     number: '02',
@@ -400,6 +415,125 @@ export const AI_PROJECTS: GridProject[] = [
     github: 'https://github.com/KhalidGhani333/Personal-AI-Employee',
     Icon: Briefcase,
     tone: 5,
+  },
+]
+
+// GoHighLevel / n8n automation builds shown in the dedicated /ai-automation
+// grid. These are client systems, so there are no public repos - each card
+// links straight to the live site.
+export const AI_AUTOMATION_PROJECTS: GridProject[] = [
+  {
+    name: 'Axis Sports Lab',
+    description: 'Website and CRM automation for a sports performance lab - online booking, lead capture, and automated client follow-ups.',
+    tags: ['GoHighLevel', 'CRM', 'Booking'],
+    live: 'https://axissportslab.com/',
+    github: null,
+    image: '/ai-automation/axis-sports-lab.jpg',
+    Icon: Target,
+    tone: 1,
+  },
+  {
+    name: 'Mindova',
+    description: 'Marketing site with an automated intake and nurture flow - form-to-CRM sync, email and SMS sequences, and appointment scheduling.',
+    tags: ['Next.js', 'Automation', 'CRM'],
+    live: 'https://mindova.vercel.app/',
+    github: null,
+    image: '/ai-automation/mindova.jpg',
+    Icon: Sparkles,
+    tone: 3,
+  },
+  {
+    name: 'GoHighLevel Funnel Build',
+    description: 'High-converting GoHighLevel funnel - landing page, lead qualification, and pipeline automation built end to end.',
+    tags: ['GoHighLevel', 'Funnel', 'Landing Page'],
+    live: 'https://sites.leadconnectorhq.com/preview/C3ytOeo4iqljYjKpK8fT',
+    github: null,
+    image: '/ai-automation/gohighlevel-funnel.jpg',
+    Icon: Zap,
+    tone: 0,
+  },
+  {
+    name: 'Bare & Balanced Spa',
+    description: 'Spa booking and CRM automation - appointment scheduling, reminders, and win-back campaigns over SMS and email.',
+    tags: ['GoHighLevel', 'CRM', 'Spa'],
+    live: 'https://bareandbalancedspa.com/',
+    github: null,
+    image: '/ai-automation/bare-and-balanced-spa.jpg',
+    Icon: Flower2,
+    tone: 4,
+  },
+]
+
+// What I actually build, shown in the dedicated /services grid on the
+// homepage. Kept to the four things I ship rather than a padded list.
+export const SERVICES: Service[] = [
+  {
+    title: 'GoHighLevel Automation',
+    description:
+      'CRM pipelines, funnels, appointment booking, and follow-up sequences built end to end inside GoHighLevel.',
+    tags: ['CRM', 'Funnels', 'Booking'],
+    Icon: Workflow,
+  },
+  {
+    title: 'n8n Workflow Automation',
+    description:
+      'Custom automation pipelines that connect the tools you already use - forms, webhooks, APIs, notifications - so nothing needs manual handling.',
+    tags: ['Webhooks', 'APIs', 'Integrations'],
+    Icon: GitBranch,
+  },
+  {
+    title: 'Web Development',
+    description:
+      'Fast, responsive websites and web apps built with React, Next.js, TypeScript, and Tailwind CSS.',
+    tags: ['React', 'Next.js', 'TypeScript'],
+    Icon: Code2,
+  },
+  {
+    title: 'AI Agents & Chatbots',
+    description:
+      'Conversational AI agents and assistants built on the OpenAI Agents SDK for support, sales, and internal tools.',
+    tags: ['OpenAI', 'Agents SDK', 'Automation'],
+    Icon: Bot,
+  },
+]
+
+// Tech stack grouped by category for the dedicated /skills grid on the
+// homepage - the sidebar TECH_STACK marquee stays as the compact scrolling
+// version of the same set.
+export const SKILL_CATEGORIES: SkillCategory[] = [
+  {
+    title: 'Automation & CRM',
+    description: 'The systems I automate businesses on.',
+    skills: [
+      { Icon: GoHighLevelIcon, color: '#E8C200', label: 'GoHighLevel' },
+      { Icon: SiN8N, color: '#EA4B71', label: 'n8n' },
+    ],
+  },
+  {
+    title: 'Frontend',
+    description: 'What I build interfaces with.',
+    skills: [
+      { Icon: SiReact, color: '#61DAFB', label: 'React' },
+      { Icon: SiNextdotjs, color: null, label: 'Next.js' },
+      { Icon: SiTypescript, color: '#3178C6', label: 'TypeScript' },
+      { Icon: SiTailwindcss, color: '#38BDF8', label: 'Tailwind CSS' },
+      { Icon: SiJavascript, color: '#F7DF1E', label: 'JavaScript' },
+      { Icon: SiHtml5, color: '#E34F26', label: 'HTML5' },
+      { Icon: SiCss, color: '#1572B6', label: 'CSS' },
+    ],
+  },
+  {
+    title: 'Backend, AI & Tools',
+    description: 'What runs behind the scenes.',
+    skills: [
+      { Icon: SiNodedotjs, color: '#339933', label: 'Node.js' },
+      { Icon: SiPython, color: '#3776AB', label: 'Python' },
+      { Icon: OpenAIIcon, color: null, label: 'OpenAI' },
+      { Icon: OpenAIIcon, color: null, label: 'OpenAI Agents SDK' },
+      { Icon: SiSanity, color: '#F03E2F', label: 'Sanity' },
+      { Icon: FileCode2, color: '#E8C200', label: 'Spec Driven Development' },
+      { Icon: SiGithub, color: null, label: 'GitHub' },
+    ],
   },
 ]
 

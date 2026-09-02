@@ -6,7 +6,7 @@ import BookCallButton from './BookCallButton'
 
 export default function MobileNav({ active }: { active: string }) {
   const [open, setOpen] = useState(false)
-  const dark = active === 'projects'
+  const dark = active === 'projects' || active === 'skills'
 
   function handleNavClick(id: string) {
     setOpen(false)

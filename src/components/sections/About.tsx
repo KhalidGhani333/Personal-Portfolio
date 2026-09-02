@@ -3,6 +3,7 @@ import { X } from 'lucide-react'
 import { TIMELINE } from '../../data/content'
 import type { TimelineEntry } from '../../lib/types'
 import Avatar from '../Avatar'
+import Reveal from '../GsapReveal'
 
 // A gentle S-curve rather than a straight drop, echoing the reference's
 // meandering connector. preserveAspectRatio="none" lets this thin viewBox
@@ -93,13 +94,17 @@ export default function About() {
   return (
     <section id="about" className="scroll-mt-20 px-4 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl">
-        <h2 className="text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]">
+        <Reveal
+          as="h2"
+          effect="up"
+          className="text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]"
+        >
           About Me <span className="text-[#E8C200]">&amp;</span> My Journey
-        </h2>
-        <p className="mt-6 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
+        </Reveal>
+        <Reveal as="p" effect="up" delay={0.1} className="mt-6 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
           From building frontend components as an intern to engineering full automation systems at
           Techgenics - here's how I got here.
-        </p>
+        </Reveal>
 
         <div className="relative mt-20">
           <svg
@@ -127,8 +132,10 @@ export default function About() {
 
           <ul className="flex flex-col gap-14 sm:gap-16">
             {TIMELINE.map((item, i) => (
-              <li
+              <Reveal
                 key={item.year}
+                as="li"
+                effect={i % 2 === 0 ? 'right' : 'left'}
                 className="relative grid grid-cols-1 gap-6 pl-12 lg:grid-cols-2 lg:gap-x-16 lg:pl-0"
               >
                 <span className="absolute left-4 top-2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-4 border-[#DCD8CF] bg-[#E8C200] lg:left-1/2" />
@@ -144,7 +151,7 @@ export default function About() {
                     <TimelineCard item={item} onReadMore={setActiveItem} />
                   </>
                 )}
-              </li>
+              </Reveal>
             ))}
           </ul>
         </div>
