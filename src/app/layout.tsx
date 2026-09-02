@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'RIYOX - Khalid | AI Automation Developer',
-  description: 'Khalid / RIYOX - AI automation developer. AI Automation, Applied Differently.',
+  title: 'Khalid | AI Automation Developer',
+  description: 'Khalid - AI automation developer. AI Automation, Applied Differently.',
   icons: { icon: '/favicon.svg' },
 }
 

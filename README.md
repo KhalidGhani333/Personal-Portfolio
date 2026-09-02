@@ -1,6 +1,6 @@
 # Khalid Ghani — Portfolio
 
-Personal portfolio site for Khalid Ghani (RIYOX) — AI Automation Engineer & Website Developer.
+Personal portfolio site for Khalid Ghani — AI Automation Engineer & Website Developer.
 
 Built with **Next.js 16 (App Router)**, React 19, TypeScript, Tailwind CSS v4, and Framer Motion.
 
