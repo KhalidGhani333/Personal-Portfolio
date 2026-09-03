@@ -4,6 +4,7 @@ import { AI_AUTOMATION_PROJECTS } from '../../data/content'
 import type { GridProject } from '../../lib/types'
 import ProjectThumb from '../../components/ProjectThumb'
 import Reveal from '../../components/GsapReveal'
+import HeadingReveal from '../../components/HeadingReveal'
 
 export const metadata = {
   title: 'AI Automation | Khalid Ghani',
@@ -13,8 +14,8 @@ function AIAutomationProjectCard({ project, index }: { project: GridProject; ind
   return (
     <Reveal
       as="article"
-      effect="up"
-      delay={(index % 3) * 0.1}
+      effect="blur"
+      delay={(index % 3) * 0.12}
       className="flex flex-col overflow-hidden rounded-[20px] border border-[#1A1A1A]/10 bg-white/60"
     >
       {project.image ? (
@@ -88,13 +89,12 @@ export default function AIAutomationPage() {
           Back to portfolio
         </Link>
 
-        <Reveal
+        <HeadingReveal
           as="h1"
-          effect="up"
           className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]"
         >
           AI <span className="text-[#E8C200]">Automation</span>
-        </Reveal>
+        </HeadingReveal>
         <Reveal as="p" effect="up" delay={0.1} className="mt-4 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
           GoHighLevel and n8n automation systems - CRM, funnels, booking, and follow-up flows I&apos;ve built for clients.
         </Reveal>

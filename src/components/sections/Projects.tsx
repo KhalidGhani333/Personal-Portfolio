@@ -1,8 +1,13 @@
+'use client'
+
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { PROJECTS } from '../../data/content'
 import type { FeaturedProject } from '../../lib/types'
+import { gsap, ScrollTrigger } from '../../lib/gsap'
+import { useGsap } from '../../lib/useGsap'
 import Reveal from '../GsapReveal'
+import HeadingReveal from '../HeadingReveal'
 
 function ProjectCard({ project, index }: { project: FeaturedProject; index: number }) {
   const card = (
@@ -62,19 +67,60 @@ function ProjectCard({ project, index }: { project: FeaturedProject; index: numb
 }
 
 export default function Projects() {
+  // On desktop the section pins and the vertical scroll is re-routed into
+  // the card rail's horizontal scroll (native CSS snap is turned off for
+  // that phase so the scrubbed position isn't fought). Below lg it stays a
+  // plain swipeable rail.
+  const sectionRef = useGsap<HTMLElement>(({ self }) => {
+    const scroller = self.querySelector<HTMLElement>('[data-projects-scroller]')
+    if (!scroller) return
+
+    const mm = gsap.matchMedia()
+    mm.add('(min-width: 1024px)', () => {
+      const getMax = () => scroller.scrollWidth - scroller.clientWidth
+      if (getMax() <= 0) return
+
+      const prevSnap = scroller.style.scrollSnapType
+      scroller.style.scrollSnapType = 'none'
+
+      const st = ScrollTrigger.create({
+        trigger: self,
+        start: 'top top',
+        end: () => '+=' + getMax(),
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (s) => {
+          scroller.scrollLeft = getMax() * s.progress
+        },
+      })
+
+      return () => {
+        st.kill()
+        scroller.style.scrollSnapType = prevSnap
+      }
+    })
+
+    return () => mm.revert()
+  })
+
   return (
-    <section id="projects" className="scroll-mt-20 bg-[#0c0c0b] py-24 sm:py-32">
+    <section ref={sectionRef} id="projects" className="scroll-mt-20 bg-[#0c0c0b] py-24 sm:py-32">
       <div className="mx-auto max-w-5xl px-4">
-        <Reveal as="h2" effect="up" className="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-white">
+        <HeadingReveal className="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-white">
           Featured <span className="text-[#E8C200]">Projects</span>
-        </Reveal>
+        </HeadingReveal>
         <Reveal as="p" effect="up" delay={0.1} className="mt-4 max-w-xl text-base leading-[1.7] text-white/55">
           Automation systems designed, built, and shipped for teams that needed more than a script - a
           look at some of that work.
         </Reveal>
       </div>
 
-      <div className="no-scrollbar mt-12 snap-x-mandatory overflow-x-auto pb-4">
+      <div
+        data-projects-scroller
+        className="no-scrollbar mt-12 snap-x-mandatory overflow-x-auto pb-4"
+      >
         <div className="flex gap-6 px-4">
           {PROJECTS.map((project, index) => (
             <ProjectCard key={project.number} project={project} index={index} />

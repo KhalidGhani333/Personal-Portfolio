@@ -7,6 +7,7 @@ import type { TargetRefs } from '../lib/types'
 import useActiveSection from '../lib/useActiveSection'
 import Sidebar from './sidebar/Sidebar'
 import MobileNav from './MobileNav'
+import ScrollProgress from './ScrollProgress'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Projects from './sections/Projects'
@@ -45,6 +46,7 @@ function MainSite() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="min-h-screen bg-[#DCD8CF]">
+        <ScrollProgress />
         <Sidebar active={active} scrollYProgress={scrollYProgress} targetRefs={targetRefs} />
         <MobileNav active={active} />
 

@@ -4,6 +4,7 @@ import { AI_PROJECTS } from '../../data/content'
 import type { GridProject } from '../../lib/types'
 import ProjectThumb from '../../components/ProjectThumb'
 import Reveal from '../../components/GsapReveal'
+import HeadingReveal from '../../components/HeadingReveal'
 
 export const metadata = {
   title: 'AI Projects | Khalid Ghani',
@@ -13,8 +14,8 @@ function AIProjectCard({ project, index }: { project: GridProject; index: number
   return (
     <Reveal
       as="article"
-      effect="up"
-      delay={(index % 3) * 0.1}
+      effect="blur"
+      delay={(index % 3) * 0.12}
       className="flex flex-col overflow-hidden rounded-[20px] border border-[#1A1A1A]/10 bg-white/60"
     >
       {project.image ? (
@@ -95,13 +96,12 @@ export default function AIProjectsPage() {
           Back to portfolio
         </Link>
 
-        <Reveal
+        <HeadingReveal
           as="h1"
-          effect="up"
           className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]"
         >
           AI <span className="text-[#E8C200]">Projects</span>
-        </Reveal>
+        </HeadingReveal>
         <Reveal as="p" effect="up" delay={0.1} className="mt-4 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
           AI agents and workflows I&apos;ve built - here are some of them.
         </Reveal>

@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from 'react'
-import { gsap, ensureGsapRegistered } from '../lib/gsap'
+import { gsap, ensureGsapRegistered, prefersReducedMotion } from '../lib/gsap'
 
-export type RevealEffect = 'up' | 'down' | 'left' | 'right' | 'scale' | 'flip'
+export type RevealEffect = 'up' | 'down' | 'left' | 'right' | 'scale' | 'flip' | 'blur'
 
 interface RevealProps {
   children: ReactNode
@@ -12,6 +12,12 @@ interface RevealProps {
   duration?: number
   className?: string
   as?: ElementType
+  /** Tie the animation to scroll position instead of playing once on enter. */
+  scrub?: boolean | number
+  /** ScrollTrigger `start` override (default `top 85%`). */
+  start?: string
+  /** Replay every time the element scrolls back into view. */
+  repeat?: boolean
 }
 
 // Starting (hidden) state for each effect. `up`/`down`/`left`/`right` travel
@@ -25,6 +31,7 @@ const FROM_VARS: Record<RevealEffect, gsap.TweenVars> = {
   right: { x: 120, opacity: 0 },
   scale: { scale: 0.6, opacity: 0 },
   flip: { rotateY: 100, opacity: 0, transformPerspective: 900 },
+  blur: { y: 60, opacity: 0, filter: 'blur(14px)' },
 }
 
 // Plain-CSS equivalents of FROM_VARS above, used only for the initial inline
@@ -37,6 +44,7 @@ const FROM_STYLES: Record<RevealEffect, CSSProperties> = {
   right: { opacity: 0, transform: 'translateX(120px)' },
   scale: { opacity: 0, transform: 'scale(0.6)' },
   flip: { opacity: 0, transform: 'perspective(900px) rotateY(100deg)' },
+  blur: { opacity: 0, transform: 'translateY(60px)', filter: 'blur(14px)' },
 }
 
 // Scroll-triggered entrance animation. Renders with the effect's hidden
@@ -50,6 +58,9 @@ export default function Reveal({
   duration = 1,
   className,
   as: Tag = 'div',
+  scrub = false,
+  start = 'top 85%',
+  repeat = false,
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null)
 
@@ -58,19 +69,28 @@ export default function Reveal({
     const el = ref.current
     if (!el) return
 
+    if (prefersReducedMotion()) {
+      gsap.set(el, { clearProps: 'all' })
+      return
+    }
+
     const tween = gsap.fromTo(el, FROM_VARS[effect], {
       y: 0,
       x: 0,
       scale: 1,
       opacity: 1,
       rotateY: 0,
+      filter: 'blur(0px)',
       duration,
-      delay,
+      delay: scrub ? 0 : delay,
       ease: effect === 'scale' || effect === 'flip' ? 'back.out(1.6)' : 'power3.out',
-      clearProps: 'transform,opacity',
+      clearProps: scrub ? '' : 'transform,opacity,filter',
       scrollTrigger: {
         trigger: el,
-        start: 'top 85%',
+        start,
+        end: scrub ? 'top 45%' : undefined,
+        scrub: scrub === true ? 1 : scrub || false,
+        toggleActions: repeat ? 'restart none none reverse' : 'play none none none',
       },
     })
 
@@ -78,9 +98,9 @@ export default function Reveal({
       tween.scrollTrigger?.kill()
       tween.kill()
     }
-  }, [effect, delay, duration])
+  }, [effect, delay, duration, scrub, start, repeat])
 
-  const Component = Tag as any
+  const Component = Tag as ElementType
 
   return (
     <Component ref={ref} className={className} style={FROM_STYLES[effect]}>

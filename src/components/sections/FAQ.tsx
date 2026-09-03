@@ -1,4 +1,6 @@
-import { useState } from 'react'
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
 import { FileCode2 } from 'lucide-react'
 import {
   SiReact,
@@ -17,7 +19,10 @@ import {
 import { BRAND, FAQS } from '../../data/content'
 import { OpenAIIcon, GoHighLevelIcon } from '../../lib/icons'
 import type { Faq, IconComponent } from '../../lib/types'
+import { gsap, ensureGsapRegistered, prefersReducedMotion } from '../../lib/gsap'
+import { useGsap } from '../../lib/useGsap'
 import Reveal from '../GsapReveal'
+import HeadingReveal from '../HeadingReveal'
 
 interface SkillIcon {
   Icon: IconComponent
@@ -54,20 +59,45 @@ const SKILL_ICONS: SkillIcon[] = [
 
 function SkillBadge({ Icon, color, top, left }: SkillIcon) {
   return (
-    <span
-      style={{ top, left }}
-      className="absolute z-10 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#DCD8CF] shadow-md sm:h-12 sm:w-12"
-    >
-      <Icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color }} aria-hidden="true" />
+    <span style={{ top, left }} className="absolute z-10 -translate-x-1/2 -translate-y-1/2">
+      <span
+        data-faq-badge
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-[#DCD8CF] shadow-md sm:h-12 sm:w-12"
+      >
+        <Icon className="h-4 w-4 sm:h-5 sm:w-5" style={{ color }} aria-hidden="true" />
+      </span>
     </span>
   )
 }
 
 function AccordionItem({ faq }: { faq: Faq }) {
   const [open, setOpen] = useState(false)
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const panel = panelRef.current
+    if (!panel) return
+
+    if (prefersReducedMotion()) {
+      gsap.set(panel, { height: open ? 'auto' : 0, opacity: open ? 1 : 0 })
+      return
+    }
+
+    ensureGsapRegistered()
+    const tween = gsap.to(panel, {
+      height: open ? 'auto' : 0,
+      opacity: open ? 1 : 0,
+      duration: 0.42,
+      ease: 'power2.inOut',
+      overwrite: true,
+    })
+    return () => {
+      tween.kill()
+    }
+  }, [open])
 
   return (
-    <div className="rounded-[20px] bg-[#E4E1DA]">
+    <div className="overflow-hidden rounded-[20px] bg-[#E4E1DA]">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
@@ -80,20 +110,55 @@ function AccordionItem({ faq }: { faq: Faq }) {
           {!open && <span className="absolute h-3.5 w-0.5 rounded-full bg-[#E8C200]" aria-hidden="true" />}
         </span>
       </button>
-      {open && (
-        <div className="px-6 pb-6">
-          <p className="pt-4 text-sm leading-[1.7] text-[#1A1A1A]/65">{faq.answer}</p>
-        </div>
-      )}
+      <div ref={panelRef} style={{ height: 0, opacity: 0 }} className="overflow-hidden">
+        <p className="px-6 pb-6 pt-4 text-sm leading-[1.7] text-[#1A1A1A]/65">{faq.answer}</p>
+      </div>
     </div>
   )
 }
 
 export default function FAQ() {
+  // The wordmark drifts on a slow parallax; the skill badges burst out from
+  // their pins with a random spin, then settle into a lazy float.
+  const bannerRef = useGsap<HTMLDivElement>(({ self }) => {
+    const wordmark = self.querySelector<HTMLElement>('[data-faq-wordmark]')
+    if (wordmark) {
+      gsap.to(wordmark, {
+        yPercent: -18,
+        ease: 'none',
+        scrollTrigger: { trigger: self, start: 'top bottom', end: 'bottom top', scrub: true },
+      })
+    }
+
+    const badges = gsap.utils.toArray<HTMLElement>(self.querySelectorAll('[data-faq-badge]'))
+    if (!badges.length) return
+
+    gsap.from(badges, {
+      scale: 0,
+      opacity: 0,
+      rotate: () => gsap.utils.random(-140, 140),
+      transformOrigin: '50% 50%',
+      duration: 0.6,
+      ease: 'back.out(1.8)',
+      stagger: { each: 0.05, from: 'random' },
+      scrollTrigger: { trigger: self, start: 'top 80%' },
+    })
+
+    gsap.to(badges, {
+      y: () => gsap.utils.random(-9, 9),
+      duration: () => gsap.utils.random(2.4, 4.6),
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut',
+      delay: 1.1,
+    })
+  })
+
   return (
     <section id="faq" className="relative scroll-mt-20 overflow-hidden pb-24 pt-12 sm:pb-32">
-      <div className="relative flex h-40 select-none items-center justify-center sm:h-56 lg:h-64">
+      <div ref={bannerRef} className="relative flex h-40 select-none items-center justify-center sm:h-56 lg:h-64">
         <span
+          data-faq-wordmark
           aria-hidden="true"
           className="whitespace-nowrap text-[22vw] font-extrabold leading-none tracking-tighter text-[#E8C200] lg:text-[min(16vw,13rem)]"
         >
@@ -112,14 +177,9 @@ export default function FAQ() {
         >
           FAQ
         </Reveal>
-        <Reveal
-          as="h2"
-          effect="up"
-          delay={0.1}
-          className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-[#1A1A1A]"
-        >
+        <HeadingReveal className="mt-6 text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-[#1A1A1A]">
           Got any questions?
-        </Reveal>
+        </HeadingReveal>
 
         <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {FAQS.map((faq, index) => (

@@ -3,6 +3,8 @@ import { motion, useTransform, type MotionStyle, type MotionValue } from 'framer
 import { BRAND, NAV_ITEMS, TRAITS } from '../../data/content'
 import type { NavItem, TargetRefs } from '../../lib/types'
 import { scrollToId } from '../../lib/scroll'
+import { gsap } from '../../lib/gsap'
+import { useGsap } from '../../lib/useGsap'
 import { fadeUpBlur, staggerContainer } from '../Reveal'
 import BookCallButton from '../BookCallButton'
 import useFlyToTarget, { type FlyStyle } from '../../lib/useFlyToTarget'
@@ -122,6 +124,18 @@ const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
   const blurPx = useTransform(scrollYProgress, [0, 1], [0, 20])
   const blurFilter = useTransform(blurPx, (v: number) => `blur(${v}px)`)
 
+  // The oversized KHALID wordmark behind the portrait drifts down and
+  // swells slightly as the hero scrolls away, adding a layer of depth
+  // behind framer-motion's fly-to-sidebar choreography.
+  const wordmarkRef = useGsap<HTMLSpanElement>(({ self }) => {
+    gsap.to(self, {
+      yPercent: 9,
+      scale: 1.06,
+      ease: 'none',
+      scrollTrigger: { trigger: self, start: 'top top', end: 'bottom top', scrub: true },
+    })
+  })
+
   const headlineRef = useRef<HTMLHeadingElement>(null)
   const navRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
@@ -152,6 +166,7 @@ const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
       className="relative flex min-h-screen scroll-mt-20 flex-col overflow-hidden pt-16 lg:pt-0"
     >
       <span
+        ref={wordmarkRef}
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 flex select-none items-center justify-center whitespace-nowrap text-[32vw] font-extrabold leading-none tracking-tighter text-[#E8C200] lg:text-[24vw]"
       >

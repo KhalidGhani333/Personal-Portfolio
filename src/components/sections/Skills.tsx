@@ -1,13 +1,15 @@
 import { SKILL_CATEGORIES } from '../../data/content'
 import Reveal from '../GsapReveal'
+import HeadingReveal from '../HeadingReveal'
+import Stagger from '../Stagger'
 
 export default function Skills() {
   return (
     <section id="skills" className="scroll-mt-20 bg-[#0c0c0b] px-4 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl">
-        <Reveal as="h2" effect="up" className="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-white">
+        <HeadingReveal className="text-[clamp(2.5rem,6vw,4rem)] font-bold tracking-[-0.03em] text-white">
           Skills <span className="text-[#E8C200]">&amp; Tools</span>
-        </Reveal>
+        </HeadingReveal>
         <Reveal as="p" effect="up" delay={0.1} className="mt-4 max-w-xl text-base leading-[1.7] text-white/55">
           The stack behind every automation system and interface I ship.
         </Reveal>
@@ -18,13 +20,10 @@ export default function Skills() {
               <h3 className="text-sm font-bold uppercase tracking-wide text-[#E8C200]">{category.title}</h3>
               <p className="mt-1 text-sm text-white/45">{category.description}</p>
 
-              <ul className="mt-5 flex flex-wrap gap-3">
-                {category.skills.map(({ Icon, color, label }, skillIndex) => (
-                  <Reveal
+              <Stagger as="ul" effect="scale" each={0.05} start="top 88%" className="mt-5 flex flex-wrap gap-3">
+                {category.skills.map(({ Icon, color, label }) => (
+                  <li
                     key={label}
-                    as="li"
-                    effect="scale"
-                    delay={skillIndex * 0.06}
                     className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2.5"
                   >
                     <Icon
@@ -33,9 +32,9 @@ export default function Skills() {
                       aria-hidden="true"
                     />
                     <span className="text-sm font-medium text-white/80">{label}</span>
-                  </Reveal>
+                  </li>
                 ))}
-              </ul>
+              </Stagger>
             </Reveal>
           ))}
         </div>

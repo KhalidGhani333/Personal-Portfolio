@@ -1,9 +1,14 @@
+'use client'
+
 import { useState } from 'react'
 import { X } from 'lucide-react'
 import { TIMELINE } from '../../data/content'
 import type { TimelineEntry } from '../../lib/types'
+import { gsap } from '../../lib/gsap'
+import { useGsap } from '../../lib/useGsap'
 import Avatar from '../Avatar'
 import Reveal from '../GsapReveal'
+import HeadingReveal from '../HeadingReveal'
 
 // A gentle S-curve rather than a straight drop, echoing the reference's
 // meandering connector. preserveAspectRatio="none" lets this thin viewBox
@@ -24,11 +29,11 @@ function TimelineCard({ item, onReadMore }: TimelineCardProps) {
       <h3 className="mt-3 text-xl font-bold tracking-tight text-[#1A1A1A]">{item.title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-[#1A1A1A]/65">{item.text}</p>
 
-      <div className="mt-5 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-x-3 gap-y-4">
+        <div className="flex min-w-0 items-center gap-2.5">
           <Avatar name={item.handle} size={32} />
-          <div className="leading-tight">
-            <p className="text-xs font-semibold text-[#1A1A1A]">{item.handle}</p>
+          <div className="min-w-0 leading-tight">
+            <p className="truncate text-xs font-semibold text-[#1A1A1A]">{item.handle}</p>
             <p className="text-[11px] text-[#1A1A1A]/50">{item.time}</p>
           </div>
         </div>
@@ -91,22 +96,56 @@ function RoleModal({ item, onClose }: RoleModalProps) {
 export default function About() {
   const [activeItem, setActiveItem] = useState<TimelineEntry | null>(null)
 
+  // The connector curve draws itself in and the year markers pop on their
+  // pins as you scroll the timeline, both scrubbed to scroll position.
+  const timelineRef = useGsap<HTMLDivElement>(({ self }) => {
+    // The curve carries vector-effect="non-scaling-stroke" inside a
+    // non-uniformly stretched SVG, so its length can't be measured (rules
+    // out DrawSVG). pathLength="100" normalises dash math instead - animate
+    // the dash offset from a full 100 down to 0 to "draw" it in.
+    const accent = self.querySelector<SVGPathElement>('[data-timeline-accent]')
+    if (accent) {
+      gsap.set(accent, { strokeDasharray: 100 })
+      gsap.fromTo(
+        accent,
+        { strokeDashoffset: 100 },
+        {
+          strokeDashoffset: 0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: self,
+            start: 'top 75%',
+            end: 'bottom 75%',
+            scrub: 1,
+          },
+        },
+      )
+    }
+
+    gsap.utils.toArray<HTMLElement>(self.querySelectorAll('[data-timeline-dot]')).forEach((dot) => {
+      gsap.from(dot, {
+        scale: 0,
+        opacity: 0,
+        transformOrigin: '50% 50%',
+        duration: 0.5,
+        ease: 'back.out(3)',
+        scrollTrigger: { trigger: dot, start: 'top 82%' },
+      })
+    })
+  })
+
   return (
     <section id="about" className="scroll-mt-20 px-4 py-24 sm:py-32">
       <div className="mx-auto max-w-5xl">
-        <Reveal
-          as="h2"
-          effect="up"
-          className="text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]"
-        >
+        <HeadingReveal className="text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[0.95] tracking-[-0.03em] text-[#1A1A1A]">
           About Me <span className="text-[#E8C200]">&amp;</span> My Journey
-        </Reveal>
+        </HeadingReveal>
         <Reveal as="p" effect="up" delay={0.1} className="mt-6 max-w-xl text-base leading-[1.7] text-[#1A1A1A]/65">
           From building frontend components as an intern to engineering full automation systems at
           Techgenics - here's how I got here.
         </Reveal>
 
-        <div className="relative mt-20">
+        <div ref={timelineRef} className="relative mt-20">
           <svg
             aria-hidden="true"
             className="absolute left-4 top-0 h-full w-4 -translate-x-1/2 lg:left-1/2"
@@ -122,7 +161,9 @@ export default function About() {
               className="text-[#1A1A1A]/15"
             />
             <path
+              data-timeline-accent
               d={TIMELINE_CURVE}
+              pathLength={100}
               stroke="#E8C200"
               strokeWidth="2"
               vectorEffect="non-scaling-stroke"
@@ -138,7 +179,10 @@ export default function About() {
                 effect={i % 2 === 0 ? 'right' : 'left'}
                 className="relative grid grid-cols-1 gap-6 pl-12 lg:grid-cols-2 lg:gap-x-16 lg:pl-0"
               >
-                <span className="absolute left-4 top-2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-4 border-[#DCD8CF] bg-[#E8C200] lg:left-1/2" />
+                <span
+                  data-timeline-dot
+                  className="absolute left-4 top-2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-4 border-[#DCD8CF] bg-[#E8C200] lg:left-1/2"
+                />
 
                 {i % 2 === 0 ? (
                   <>
