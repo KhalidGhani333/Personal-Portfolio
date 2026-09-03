@@ -103,7 +103,7 @@ export default function Reveal({
   const Component = Tag as ElementType
 
   return (
-    <Component ref={ref} className={className} style={FROM_STYLES[effect]}>
+    <Component ref={ref} data-reveal className={className} style={FROM_STYLES[effect]}>
       {children}
     </Component>
   )

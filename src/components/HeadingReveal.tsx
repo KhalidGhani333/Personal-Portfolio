@@ -47,7 +47,7 @@ export default function HeadingReveal({
 
   const Component = Tag as ElementType
   return (
-    <Component ref={ref} className={className}>
+    <Component ref={ref} data-reveal className={className}>
       {children}
     </Component>
   )
