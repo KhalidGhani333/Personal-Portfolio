@@ -70,8 +70,24 @@ export default function Reveal({
     if (!el) return
 
     if (prefersReducedMotion()) {
-      gsap.set(el, { clearProps: 'all' })
-      return
+      // No travel/scale for reduced motion, but a plain opacity fade is
+      // still within the guideline and keeps the page from feeling dead.
+      gsap.set(el, { clearProps: 'transform,filter' })
+      const rmTween = gsap.fromTo(
+        el,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power1.out',
+          clearProps: 'opacity',
+          scrollTrigger: { trigger: el, start },
+        },
+      )
+      return () => {
+        rmTween.scrollTrigger?.kill()
+        rmTween.kill()
+      }
     }
 
     const tween = gsap.fromTo(el, FROM_VARS[effect], {

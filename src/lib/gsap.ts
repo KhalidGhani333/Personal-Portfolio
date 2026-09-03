@@ -30,16 +30,27 @@ export function ensureGsapRegistered() {
 }
 
 // Absolute last resort. If a `[data-reveal]` block (or one of its children)
-// is inside the viewport but still fully transparent well after load, its
+// has been scrolled well up the viewport but is still fully transparent, its
 // ScrollTrigger never fired - show it so content is never lost on a live
-// build, whatever the cause.
+// build. Deliberately conservative: it stays out of ScrollTrigger's way
+// (no sweeps for the first few seconds, and only for elements far past any
+// reasonable trigger point) so real reveals still get to play - important
+// on mobile, where the short viewport puts many sections "near view" at
+// once and an eager failsafe would blank every animation.
 function startRevealFailsafe() {
+  let armed = false
+  setTimeout(() => {
+    armed = true
+  }, 3500)
+
   const sweep = () => {
+    if (!armed) return
     document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((block) => {
       const r = block.getBoundingClientRect()
-      // Well inside the viewport (past any reasonable trigger point) but
-      // still transparent - only then step in, so real reveals still play.
-      if (r.top >= window.innerHeight * 0.6 || r.bottom <= 0) return
+      // Past a sensible trigger point but still hidden. `isTweening` below
+      // keeps this off anything ScrollTrigger is actively playing, and the
+      // 3.5s arm delay gives every real reveal first crack.
+      if (r.bottom <= 0 || r.top >= window.innerHeight * 0.6) return
       const stuck = [block, ...block.querySelectorAll<HTMLElement>('*')].filter(
         (n) => getComputedStyle(n).opacity === '0' && !gsap.isTweening(n),
       )
@@ -54,14 +65,14 @@ function startRevealFailsafe() {
     'scroll',
     () => {
       const now = Date.now()
-      if (now - last < 150) return
+      if (now - last < 250) return
       last = now
       sweep()
     },
     { passive: true },
   )
-  setTimeout(sweep, 4000)
-  setTimeout(sweep, 9000)
+  setTimeout(sweep, 6000)
+  setTimeout(sweep, 12000)
 }
 
 // Trigger positions are measured the moment each animation is created - but

@@ -185,23 +185,24 @@ const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
           variants={heroStagger}
           className="relative flex w-full max-w-4xl flex-col items-center md:flex-row md:items-center md:justify-center md:gap-10"
         >
-          <div className="flex flex-col items-center gap-3 sm:gap-4">
-            <motion.h1
-              variants={fadeUpBlur}
-              className="max-w-[300px] text-center text-[27px] font-bold leading-[1.15] tracking-tight text-[#1A1A1A] sm:max-w-none sm:text-4xl"
-            >
-              AI Automation,
-              <br />
-              Applied Differently.
-            </motion.h1>
-
-            <FloatingCard className="w-full max-w-[176px] text-center sm:max-w-[220px]">
+          <div className="flex flex-col items-center gap-4">
+            <FloatingCard className="w-full max-w-[200px] text-center sm:max-w-[220px]">
               <span className="block text-3xl font-extrabold tracking-tight text-[#E8C200] sm:text-4xl">20+</span>
               <span className="text-xs text-[#1A1A1A]/70 sm:text-sm">Projects delivered end to end</span>
             </FloatingCard>
 
-            <div className="relative w-full max-w-[min(90vw,400px)] aspect-[894/1116] sm:max-w-[380px] md:max-w-[320px]">
+            <div className="relative w-full max-w-[min(92vw,420px)] aspect-[894/1116] sm:max-w-[380px] md:max-w-[320px]">
               <PortraitFigure style={{ filter: blurFilter }} className="absolute inset-0 h-full w-full" />
+              <div className="pointer-events-none absolute inset-x-0 top-[70%] flex justify-center px-3 text-center">
+                <motion.h1
+                  variants={fadeUpBlur}
+                  className="text-[26px] font-bold leading-[1.12] tracking-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.6)] sm:text-3xl"
+                >
+                  AI Automation,
+                  <br />
+                  Applied Differently.
+                </motion.h1>
+              </div>
             </div>
 
             <FloatingCard className="w-full max-w-[220px]">
