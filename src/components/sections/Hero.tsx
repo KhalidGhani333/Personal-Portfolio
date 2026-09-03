@@ -168,7 +168,7 @@ const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
       <span
         ref={wordmarkRef}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex select-none items-center justify-center whitespace-nowrap text-[32vw] font-extrabold leading-none tracking-tighter text-[#E8C200] lg:text-[24vw]"
+        className="pointer-events-none absolute inset-0 flex -translate-y-[7vh] select-none items-center justify-center whitespace-nowrap text-[32vw] font-extrabold leading-none tracking-tighter text-[#E8C200] sm:-translate-y-[4vh] lg:translate-y-0 lg:text-[24vw]"
       >
         {BRAND.mark}
       </span>
@@ -178,20 +178,20 @@ const Hero = forwardRef<HTMLElement, HeroProps>(function Hero(
           at 1024px - it switches to a two-column arrangement (portrait +
           cards on one side, copy + actions on the other) so the tablet
           band isn't just a stretched-out phone view. */}
-      <div className="relative flex flex-1 flex-col items-center justify-center px-4 pb-16 pt-28 lg:hidden">
+      <div className="relative flex flex-1 flex-col items-center justify-start px-4 pb-16 pt-24 sm:justify-center lg:hidden">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={heroStagger}
           className="relative flex w-full max-w-4xl flex-col items-center md:flex-row md:items-center md:justify-center md:gap-10"
         >
-          <div className="flex flex-col items-center gap-4">
-            <FloatingCard className="w-full max-w-[220px] text-center">
-              <span className="block text-4xl font-extrabold tracking-tight text-[#E8C200]">20+</span>
-              <span className="text-sm text-[#1A1A1A]/70">Projects delivered end to end</span>
+          <div className="flex flex-col items-center gap-3 sm:gap-4">
+            <FloatingCard className="w-full max-w-[176px] text-center sm:max-w-[220px]">
+              <span className="block text-3xl font-extrabold tracking-tight text-[#E8C200] sm:text-4xl">20+</span>
+              <span className="text-xs text-[#1A1A1A]/70 sm:text-sm">Projects delivered end to end</span>
             </FloatingCard>
 
-            <div className="relative w-full max-w-[319px] aspect-[407/613] sm:max-w-[359px] md:max-w-[300px]">
+            <div className="relative w-full max-w-[340px] aspect-[894/1116] sm:max-w-[380px] md:max-w-[320px]">
               <PortraitFigure style={{ filter: blurFilter }} className="absolute inset-0 h-full w-full" />
               <div className="absolute inset-0 flex flex-col items-center justify-end p-6 pb-10 text-center">
                 <motion.h1
